@@ -24,20 +24,9 @@ impl MigrationTrait for Migration {
                             .auto_increment()
                             .primary_key(),
                     )
-                    .col(
-                        ColumnDef::new(Chef::Name)
-                            .string()
-                            .not_null()
-                    )
-                    .col(
-                        ColumnDef::new(Chef::ContactDetails)
-                            .json()
-                    )
-                    .col(
-                        ColumnDef::new(Chef::BakeryId)
-                            .integer()
-                            .not_null()
-                    )
+                    .col(ColumnDef::new(Chef::Name).string().not_null())
+                    .col(ColumnDef::new(Chef::ContactDetails).json())
+                    .col(ColumnDef::new(Chef::BakeryId).integer().not_null())
                     .foreign_key(
                         ForeignKey::create()
                             .name("fk-chef-bakery_id")

@@ -22,16 +22,8 @@ impl MigrationTrait for Migration {
                             .auto_increment()
                             .primary_key(),
                     )
-                    .col(
-                        ColumnDef::new(Bakery::Name)
-                            .string()
-                            .not_null()
-                    )
-                    .col(
-                        ColumnDef::new(Bakery::ProfitMargin)
-                            .double()
-                            .not_null()
-                    )
+                    .col(ColumnDef::new(Bakery::Name).string().not_null())
+                    .col(ColumnDef::new(Bakery::ProfitMargin).double().not_null())
                     .to_owned(),
             )
             .await
