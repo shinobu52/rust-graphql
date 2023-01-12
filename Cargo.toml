@@ -1,23 +1,24 @@
 [package]
+edition = "2021"
 name = "graphql-seaorm"
 version = "0.1.0"
-edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-futures = "0.3.25"
-sea-orm = { version = "0.10.0", features = ["sqlx-postgres", "runtime-async-std-native-tls", "macros"] }
-sea-orm-migration = "0.10.0"
-salvo = "0.37.9"
-tokio = { version = "1.24.1", features = ["full"] }
 async-graphql = "5.0.5"
-schema = { path = "./schema" }
+futures = "0.3.25"
+salvo = "0.37.9"
+schema = {path = "./schema"}
+tokio = {version = "1.24.1", features = ["full"]}
 
 [workspace]
 members = [
-    "schema"
+  "schema",
+  "entity",
 ]
 
 [workspace.dependencies]
 async-graphql = "5.0.5"
+sea-orm = {version = "0.10.0", features = ["sqlx-postgres", "runtime-async-std-native-tls", "macros"]}
+sea-orm-migration = "0.10.0"
