@@ -69,6 +69,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "api"
+version = "0.1.0"
+dependencies = [
+ "async-graphql",
+ "sea-orm",
+]
+
+[[package]]
 name = "arrayvec"
 version = "0.7.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -860,7 +868,6 @@ name = "entities"
 version = "0.1.0"
 dependencies = [
  "sea-orm",
- "sea-orm-migration",
 ]
 
 [[package]]
@@ -1110,10 +1117,12 @@ dependencies = [
 name = "graphql-seaorm"
 version = "0.1.0"
 dependencies = [
+ "api",
  "async-graphql",
+ "dotenvy",
  "futures",
  "salvo",
- "schema",
+ "sea-orm-migration",
  "tokio",
 ]
 
@@ -2204,13 +2213,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "713cfb06c7059f3588fb8044c0fad1d09e3c01d225e25b9220dbfdcf16dbb1b3"
 dependencies = [
  "windows-sys",
-]
-
-[[package]]
-name = "schema"
-version = "0.1.0"
-dependencies = [
- "async-graphql",
 ]
 
 [[package]]

@@ -6,19 +6,20 @@ version = "0.1.0"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+api = {path = "./api"}
 async-graphql = "5.0.5"
+dotenvy = "0.15.6"
 futures = "0.3.25"
 salvo = "0.37.9"
-schema = {path = "./schema"}
+sea-orm-migration = "0.10.0"
 tokio = {version = "1.24.1", features = ["full"]}
 
 [workspace]
 members = [
-  "schema",
+  "api",
   "entity",
 ]
 
 [workspace.dependencies]
 async-graphql = "5.0.5"
 sea-orm = {version = "0.10.0", features = ["sqlx-postgres", "runtime-async-std-native-tls", "macros"]}
-sea-orm-migration = "0.10.0"

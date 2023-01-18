@@ -1,9 +1,10 @@
+use api::{schema::query::QueryRoot, Database};
 use async_graphql::{http::GraphiQLSource, EmptyMutation, EmptySubscription, Schema};
+use dotenvy::dotenv;
 use salvo::prelude::*;
-use schema::query::QueryRoot;
 
 #[handler]
-async fn graphiql(res: &mut Response) {
+async fn graphiql_playground(res: &mut Response) {
     res.render(Text::Html(
         GraphiQLSource::build().endpoint("/graphql").finish(),
     ));
@@ -11,15 +12,30 @@ async fn graphiql(res: &mut Response) {
 
 #[handler]
 async fn graphql(req: &mut Request, res: &mut Response) {
-    let schema = Schema::build(QueryRoot, EmptyMutation, EmptySubscription).finish();
+    let schema = build_schema().await;
     let data = req.parse_json::<async_graphql::Request>().await.unwrap();
     let response = schema.execute(data).await;
     res.render(Json(response))
 }
 
+async fn build_schema() -> Schema<QueryRoot, EmptyMutation, EmptySubscription> {
+    let db = Database::new().await;
+    //TODO: migration 処理
+
+    Schema::build(QueryRoot, EmptyMutation, EmptySubscription)
+        .data(db)
+        .finish()
+}
+
 #[tokio::main]
 async fn main() {
-    let router = Router::new().push(Router::with_path("graphql").get(graphiql).post(graphql));
+    dotenv().ok();
+
+    let router = Router::new().push(
+        Router::with_path("graphql")
+            .get(graphiql_playground)
+            .post(graphql),
+    );
     Server::new(TcpListener::bind("127.0.0.1:3000"))
         .serve(router)
         .await;
