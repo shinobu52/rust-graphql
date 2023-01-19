@@ -10,9 +10,11 @@ api = {path = "./api"}
 async-graphql = "5.0.5"
 dotenvy = "0.15.6"
 futures = "0.3.25"
-salvo = "0.37.9"
+salvo = {version = "0.37.9", features = ["logging"]}
 sea-orm-migration = "0.10.0"
-tokio = {version = "1.24.1", features = ["full"]}
+tokio = {version = "1.24.1", features = ["macros"]}
+tracing = "0.1.37"
+tracing-subscriber = "0.3.16"
 
 [workspace]
 members = [

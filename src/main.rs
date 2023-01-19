@@ -1,6 +1,7 @@
 use api::{schema::query::QueryRoot, Database};
 use async_graphql::{http::GraphiQLSource, EmptyMutation, EmptySubscription, Schema};
 use dotenvy::dotenv;
+use salvo::logging::Logger;
 use salvo::prelude::*;
 
 #[handler]
@@ -29,9 +30,10 @@ async fn build_schema() -> Schema<QueryRoot, EmptyMutation, EmptySubscription> {
 
 #[tokio::main]
 async fn main() {
+    tracing_subscriber::fmt().init();
     dotenv().ok();
 
-    let router = Router::new().push(
+    let router = Router::new().hoop(Logger).push(
         Router::with_path("graphql")
             .get(graphiql_playground)
             .post(graphql),
