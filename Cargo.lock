@@ -1130,21 +1130,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "graphql-seaorm"
-version = "0.1.0"
-dependencies = [
- "api",
- "async-graphql",
- "dotenvy",
- "futures",
- "salvo",
- "sea-orm-migration",
- "tokio",
- "tracing",
- "tracing-subscriber",
-]
-
-[[package]]
 name = "h2"
 version = "0.3.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2201,6 +2186,21 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn",
+]
+
+[[package]]
+name = "rust-graphql"
+version = "0.1.0"
+dependencies = [
+ "api",
+ "async-graphql",
+ "dotenvy",
+ "futures",
+ "salvo",
+ "sea-orm-migration",
+ "tokio",
+ "tracing",
+ "tracing-subscriber",
 ]
 
 [[package]]

@@ -4,7 +4,7 @@ services:
   postgres:
     image: postgres:15
     environment:
-      POSTGRES_DB: sea-db
+      POSTGRES_DB: rust-graphql-db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       TZ: "Asia/Tokyo"
