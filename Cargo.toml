@@ -10,6 +10,7 @@ api = {path = "./api"}
 async-graphql = "5.0.5"
 dotenvy = "0.15.6"
 futures = "0.3.25"
+migration = {path = "./migration"}
 salvo = {version = "0.37.9", features = ["logging"]}
 sea-orm-migration = "0.10.0"
 tokio = {version = "1.24.1", features = ["macros"]}
@@ -20,8 +21,10 @@ tracing-subscriber = "0.3.16"
 members = [
   "api",
   "entity",
+  "migration",
 ]
 
 [workspace.dependencies]
 async-graphql = "5.0.5"
+dotenvy = "0.15.6"
 sea-orm = {version = "0.10.0", features = ["sqlx-postgres", "runtime-async-std-native-tls", "macros"]}

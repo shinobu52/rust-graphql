@@ -1,8 +1,10 @@
 use api::{schema::query::QueryRoot, Database};
 use async_graphql::{http::GraphiQLSource, EmptyMutation, EmptySubscription, Schema};
 use dotenvy::dotenv;
+use migration::{Migrator, MigratorTrait};
 use salvo::logging::Logger;
 use salvo::prelude::*;
+use tracing::Level;
 
 #[handler]
 async fn graphiql_playground(res: &mut Response) {
@@ -21,7 +23,8 @@ async fn graphql(req: &mut Request, res: &mut Response) {
 
 async fn build_schema() -> Schema<QueryRoot, EmptyMutation, EmptySubscription> {
     let db = Database::new().await;
-    //TODO: migration 処理
+
+    Migrator::up(db.get_connection(), None).await.unwrap();
 
     Schema::build(QueryRoot, EmptyMutation, EmptySubscription)
         .data(db)
@@ -30,7 +33,9 @@ async fn build_schema() -> Schema<QueryRoot, EmptyMutation, EmptySubscription> {
 
 #[tokio::main]
 async fn main() {
-    tracing_subscriber::fmt().init();
+    tracing_subscriber::fmt()
+        .with_max_level(Level::DEBUG)
+        .init();
     dotenv().ok();
 
     let router = Router::new().hoop(Logger).push(
